@@ -19,6 +19,7 @@
     h1 {
       color: #fdd9f5;
       text-shadow: 0 0 10px #ff80cc;
+      text-align: center;
     }
     .quiz {
       background-color: #2b2b3d;
@@ -52,6 +53,10 @@
       color: #1e1e2f;
       font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #ff66b2;
     }
     .result {
       margin-top: 2rem;
@@ -59,6 +64,7 @@
       background-color: #333;
       border-radius: 15px;
       display: none;
+      white-space: pre-line;
     }
   </style>
 </head>
@@ -66,31 +72,37 @@
   <h1>🌙 Quem é você nesse mundinho estranho?</h1>
   <div class="quiz">
     <div class="question">
-      <label>Se você fosse uma cor, qual seria?</label>
-      <input type="text" id="cor">
+      <label for="cor">Se você fosse uma cor, qual seria?</label>
+      <input type="text" id="cor" placeholder="ex: lilás lunar">
     </div>
     <div class="question">
-      <label>Qual animal representa seu lado secreto?</label>
-      <input type="text" id="animal">
+      <label for="animal">Qual animal representa seu lado secreto?</label>
+      <input type="text" id="animal" placeholder="ex: coruja sombria">
     </div>
     <div class="question">
-      <label>Descreva um sentimento que te visita à noite:</label>
-      <input type="text" id="sentimento">
+      <label for="sentimento">Descreva um sentimento que te visita à noite:</label>
+      <input type="text" id="sentimento" placeholder="ex: saudade adormecida">
     </div>
     <button onclick="mostrarResultado()">Mostrar minha essência</button>
-  </div>
-  <div class="result" id="resultado"></div>  <script>
+    <div class="result" id="resultado"></div>
+  </div>  <script>
     function mostrarResultado() {
-      const cor = document.getElementById('cor').value;
-      const animal = document.getElementById('animal').value;
-      const sentimento = document.getElementById('sentimento').value;
+      const cor = document.getElementById('cor').value.trim();
+      const animal = document.getElementById('animal').value.trim();
+      const sentimento = document.getElementById('sentimento').value.trim();
 
-      const resultado = `
-        Você é feito de ${cor}, caminha como um(a) ${animal},
-        e é acompanhado(a) pelo sentimento de "${sentimento}" nas noites mais silenciosas.`;
+      if (!cor || !animal || !sentimento) {
+        alert("Preencha tudo direitinho, por favorzinho 🥺");
+        return;
+      }
 
-      document.getElementById('resultado').innerText = resultado;
-      document.getElementById('resultado').style.display = 'block';
+      const resultado = `Você é feito(a) de ${cor},
+caminha como um(a) ${animal},
+e é acompanhado(a) pelo sentimento de \"${sentimento}\" nas noites mais silenciosas.`;
+
+      const resultDiv = document.getElementById('resultado');
+      resultDiv.innerText = resultado;
+      resultDiv.style.display = 'block';
     }
   </script></body>
 </html>
